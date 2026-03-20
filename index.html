@@ -3,199 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Pre-Order & Scheduling</title>
-    <meta name="description" content="Plan and schedule your meals ahead of time with our smart scheduling system.">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>GourmetSync - Modern Culinary Ordering</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-color: #ef4f5f;
+            --brand-hover: #d23f4d;
+            --bg-light: #ffffff;
+            --bg-alt: #fafafa;
+            --text-dark: #111827;
+            --text-muted: #4b5563;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        
+        /* Navbar */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 24px 5%; background: var(--bg-light);
+            border-bottom: 1px solid rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .logo { font-size: 26px; font-weight: 800; display: flex; align-items: center; gap: 8px; color: var(--text-dark); }
+        .logo span { color: var(--brand-color); }
+        .nav-links a {
+            color: var(--text-dark); text-decoration: none; margin-left: 36px;
+            font-weight: 600; font-size: 15px; transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--brand-color); }
+        .btn-login {
+            background: var(--text-dark); color: #fff !important;
+            padding: 12px 28px; border-radius: 8px; border: none; font-weight: 700 !important;
+        }
+        .btn-login:hover { background: var(--brand-color); }
+        /* Hero */
+        header { padding: 160px 5% 80px; background: var(--bg-alt); }
+        .hero-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1300px; margin: 0 auto; align-items: center;
+        }
+        .hero-text h1 { font-size: 64px; line-height: 1.1; margin-bottom: 24px; font-weight: 800; color: var(--text-dark); letter-spacing: -1px; }
+        .hero-text p { font-size: 20px; color: var(--text-muted); line-height: 1.6; margin-bottom: 40px; }
+        .btn-primary {
+            display: inline-block; padding: 18px 45px; background: var(--brand-color); color: #fff; text-decoration: none;
+            border-radius: 12px; font-weight: 700; font-size: 18px; box-shadow: 0 10px 20px rgba(239,79,95,0.2); transition: all 0.3s;
+        }
+        .btn-primary:hover { background: var(--brand-hover); box-shadow: 0 10px 30px rgba(239,79,95,0.3); transform: translateY(-2px); }
+        .hero-img img { width: 100%; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); object-fit: cover; }
+        /* Showcase */
+        .showcase { padding: 100px 5%; background: var(--bg-light); }
+        .showcase-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto 100px;
+        }
+        .showcase-row:last-child { margin-bottom: 0; }
+        .showcase-img img { width: 100%; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); object-fit: cover; }
+        .showcase-text h2 { font-size: 40px; font-weight: 800; margin-bottom: 20px; color: var(--text-dark); }
+        .showcase-text p { font-size: 18px; color: var(--text-muted); line-height: 1.6; }
+        .showcase-text ul { list-style: none; margin-top: 24px; }
+        .showcase-text li { font-size: 17px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-weight: 500; }
+        .showcase-text li::before { content: '✓'; color: var(--brand-color); font-weight: bold; background: rgba(239,79,95,0.1); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        
+        .reverse { direction: rtl; }
+        .reverse > * { direction: ltr; }
+        /* Footer */
+        footer { padding: 40px 5%; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); color: var(--text-muted); font-size: 15px; }
+        
+        @media (max-width: 900px) { .hero-container, .showcase-row { grid-template-columns: 1fr; text-align: center; } .showcase-text ul { display: inline-block; text-align: left; } }
+    </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <aside class="sidebar glass-panel">
-            <div class="logo">
-                <i class="fa-solid fa-utensils"></i>
-                <h2>MealSync</h2>
+    <nav>
+        <div class="logo">🍽️ Gourmet<span>Sync</span></div>
+        <div class="nav-links">
+            <a href="login.html" class="btn-login">Open Delivery App</a>
+        </div>
+    </nav>
+    <header>
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1>Smart Dining,<br>Scheduled Ahead.</h1>
+                <p>A beautifully designed, deeply interactive platform where you can discover incredible mock restaurants and impeccably schedule your meals for the whole week.</p>
+                <a href="login.html" class="btn-primary">Explore Menus Now</a>
             </div>
-            <nav>
+            <div class="hero-img">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1000&fit=crop" alt="Fresh Food Delivery">
+            </div>
+        </div>
+    </header>
+    <div class="showcase">
+        <div class="showcase-row">
+            <div class="showcase-img"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&fit=crop" alt="Restaurant Views"></div>
+            <div class="showcase-text">
+                <h2>Vibrant Restaurant Exploration</h2>
+                <p>Instantly browse through dozens of carefully curated mock restaurants using our remarkably fast, fluid application feed.</p>
                 <ul>
-                    <li class="active" data-target="dashboard"><i class="fa-solid fa-house"></i> Dashboard</li>
-                    <li data-target="weekly-planner"><i class="fa-solid fa-calendar-week"></i> Weekly Planner</li>
-                    <li data-target="history"><i class="fa-solid fa-clock-rotate-left"></i> History</li>
-                    <li data-target="settings"><i class="fa-solid fa-gear"></i> Settings</li>
+                    <li>High-resolution dish photography</li>
+                    <li>Authentic customer reviews</li>
+                    <li>Instant sliding cart interface</li>
                 </ul>
-            </nav>
-            <div class="user-profile">
-                <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User Avatar">
-                <div class="user-info">
-                    <h4>John Doe</h4>
-                    <p>Free Plan</p>
-                </div>
             </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <header>
-                <div class="header-left">
-                    <h1 id="page-title">Dashboard</h1>
-                    <p id="page-subtitle">Welcome back! Here's your meal schedule.</p>
-                </div>
-                <div class="header-right">
-                    <button class="btn-primary" id="btn-schedule-order">
-                        <i class="fa-solid fa-plus"></i> Schedule Order
-                    </button>
-                    <div class="notification-bell">
-                        <i class="fa-regular fa-bell"></i>
-                        <span class="badge">3</span>
-                    </div>
-                </div>
-            </header>
-
-            <!-- Sections -->
-            <section id="dashboard" class="page-section active">
-                <div class="stats-container">
-                    <div class="stat-card glass-panel">
-                        <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
-                        <div class="stat-details">
-                            <h3>Scheduled Meals</h3>
-                            <p id="stat-scheduled">0</p>
-                        </div>
-                    </div>
-                    <div class="stat-card glass-panel">
-                        <div class="stat-icon"><i class="fa-solid fa-wallet"></i></div>
-                        <div class="stat-details">
-                            <h3>Estimated Cost</h3>
-                            <p id="stat-cost">$0.00</p>
-                        </div>
-                    </div>
-                    <div class="stat-card glass-panel">
-                        <div class="stat-icon"><i class="fa-solid fa-fire"></i></div>
-                        <div class="stat-details">
-                            <h3>Calories Today</h3>
-                            <p id="stat-calories">0 kcal</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="upcoming-meals glass-panel">
-                    <div class="section-header">
-                        <h2>Upcoming Scheduled Meals</h2>
-                        <button class="btn-text">View All</button>
-                    </div>
-                    <div class="meal-list" id="upcoming-meal-list">
-                        <!-- Dynamic content injected here -->
-                    </div>
-                </div>
-            </section>
-
-            <section id="weekly-planner" class="page-section">
-                <div class="weekly-planner-container glass-panel">
-                    <div class="section-header">
-                        <h2>Weekly Routine Planner</h2>
-                        <button class="btn-secondary" id="btn-clear-week"><i class="fa-solid fa-trash"></i> Clear</button>
-                    </div>
-                    <div class="week-grid" id="week-grid">
-                        <!-- Days generated by JS -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- Other sections hidden by default -->
-            <section id="history" class="page-section">
-                <div class="glass-panel" style="padding: 2rem; border-radius: var(--border-radius-lg);">
-                    <h2>Order History</h2>
-                    <p style="color:var(--text-muted); margin-top: 1rem;">Coming soon...</p>
-                </div>
-            </section>
-            <section id="settings" class="page-section">
-                <div class="glass-panel" style="padding: 2rem; border-radius: var(--border-radius-lg);">
-                    <h2>Settings</h2>
-                    <p style="color:var(--text-muted); margin-top: 1rem;">Coming soon...</p>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- Modal for Scheduling Order -->
-    <div class="modal-overlay" id="schedule-modal">
-        <div class="modal-content glass-panel">
-            <div class="modal-header">
-                <h2>Schedule a Meal</h2>
-                <button class="btn-close" id="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="showcase-row reverse">
+            <div class="showcase-img"><img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&fit=crop" alt="Schedule Modal"></div>
+            <div class="showcase-text">
+                <h2>Advanced Schedule Integration</h2>
+                <p>Take total control over your hunger. Open the cart sidebar and uniquely specify exact dates and times for your deliveries next week.</p>
+                <ul>
+                    <li>Integrated calendar UI</li>
+                    <li>Secure localized order saving</li>
+                    <li>Perfect for daily lunch planning</li>
+                </ul>
             </div>
-            <form id="schedule-form">
-                <div class="form-group">
-                    <label for="meal-type">Meal Type</label>
-                    <select id="meal-type" required>
-                        <option value="Breakfast">Breakfast</option>
-                        <option value="Lunch">Lunch</option>
-                        <option value="Dinner">Dinner</option>
-                        <option value="Snack">Snack</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Select Food Items</label>
-                    <div class="food-selection grid-2" id="food-menu">
-                        <!-- Simulated menu items -->
-                        <div class="food-item" data-id="f1" data-name="Healthy Salad Bowl" data-price="12.99" data-cals="350">
-                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Salad">
-                            <div class="food-info">
-                                <h5>Healthy Salad Bowl</h5>
-                                <span>$12.99 • 350 kcal</span>
-                            </div>
-                        </div>
-                        <div class="food-item" data-id="f2" data-name="Grilled Chicken Wrap" data-price="9.50" data-cals="450">
-                            <img src="https://images.unsplash.com/photo-1626804475297-41609ea004eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Wrap">
-                            <div class="food-info">
-                                <h5>Grilled Chicken Wrap</h5>
-                                <span>$9.50 • 450 kcal</span>
-                            </div>
-                        </div>
-                        <div class="food-item" data-id="f3" data-name="Veggie Pasta" data-price="14.00" data-cals="520">
-                            <img src="https://images.unsplash.com/photo-1621996316524-fb4d9e07cfec?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Pasta">
-                            <div class="food-info">
-                                <h5>Veggie Pasta</h5>
-                                <span>$14.00 • 520 kcal</span>
-                            </div>
-                        </div>
-                        <div class="food-item" data-id="f4" data-name="Fruit Smoothie" data-price="6.50" data-cals="210">
-                            <img src="https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Smoothie">
-                            <div class="food-info">
-                                <h5>Fruit Smoothie</h5>
-                                <span>$6.50 • 210 kcal</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group half">
-                        <label for="schedule-date">Date</label>
-                        <input type="date" id="schedule-date" required>
-                    </div>
-                    <div class="form-group half">
-                        <label for="schedule-time">Time</label>
-                        <input type="time" id="schedule-time" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="recurring">Routine Scheduling</label>
-                    <div class="custom-checkbox">
-                        <input type="checkbox" id="recurring">
-                        <label for="recurring">Repeat weekly on this day</label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="order-summary">Total: <span id="order-total">$0.00</span></div>
-                    <button type="submit" class="btn-primary">Confirm Schedule</button>
-                </div>
-            </form>
         </div>
     </div>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="toast"></div>
-
-    <script src="script.js"></script>
+    <footer>
+        <p>&copy; GourmetSync 2026. The Future of Culinary Ordering.</p>
+    </footer>
 </body>
 </html>
