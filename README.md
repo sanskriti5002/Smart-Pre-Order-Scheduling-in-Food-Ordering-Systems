@@ -48,6 +48,5 @@ This project was built **purely from scratch** without relying on heavy frontend
 ---
 
 ## 👨‍💻 Project Details
-**Course**: Web Technology Project  
-**Year**: 2026  
+**Course**: Web Technology Project   
 *Built to showcase proficiency in responsive aesthetics, persistent JavaScript logic, and consumer application routing.*
