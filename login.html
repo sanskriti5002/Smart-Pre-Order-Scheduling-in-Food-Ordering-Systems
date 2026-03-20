@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GourmetSync - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background-color: #f3f4f6; color: #111827; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+        
+        .login-card {
+            background: #ffffff;
+            width: 100%; max-width: 440px; padding: 48px; border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+        }
+        .logo { font-size: 28px; font-weight: 800; text-align: center; margin-bottom: 12px; }
+        .logo span { color: #ef4f5f; }
+        .subtitle { text-align: center; color: #6b7280; font-size: 15px; margin-bottom: 36px; line-height: 1.5; }
+        
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 8px; }
+        .input-group input {
+            width: 100%; padding: 14px 16px; border: 1px solid #d1d5db; border-radius: 8px;
+            font-size: 15px; outline: none; transition: all 0.2s; background: #f9fafb;
+        }
+        .input-group input:focus { border-color: #ef4f5f; background: #ffffff; box-shadow: 0 0 0 4px rgba(239,79,95,0.1); }
+        
+        .btn-submit {
+            width: 100%; padding: 16px; background: #ef4f5f; color: #ffffff; border: none;
+            border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: background 0.2s;
+            margin-top: 16px; display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        .btn-submit:hover { background: #d23f4d; }
+        .footer-link { text-align: center; margin-top: 24px; font-size: 14px; color: #6b7280; }
+        .footer-link a { color: #ef4f5f; font-weight: 600; text-decoration: none; }
+        
+        .spinner { display: none; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.8s linear infinite; }
+        .btn-submit.loading span { display: none; }
+        .btn-submit.loading .spinner { display: block; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="logo">🍽️ Gourmet<span>Sync</span></div>
+        <div class="subtitle">Sign in to your account securely to manage your scheduled deliveries.</div>
+        
+        <form id="auth-form">
+            <div class="input-group">
+                <label>Email address</label>
+                <input type="email" value="admin@collegeproject.com" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" value="secure123" required>
+            </div>
+            <button type="submit" class="btn-submit" id="submit-btn">
+                <span>Sign In & Continue</span>
+                <div class="spinner"></div>
+            </button>
+        </form>
+        <div class="footer-link">Don't have an account? <a href="#">Create free account</a></div>
+    </div>
+    
+    <script>
+        document.getElementById('auth-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.classList.add('loading');
+            setTimeout(() => {
+                localStorage.setItem('gourmetSyncAuth', 'true');
+                window.location.href = 'app.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
