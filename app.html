@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GourmetSync - Smart Food Pre-Ordering</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="showHome()">
+                <span class="logo-icon">🍽️</span> Gourmet<span>Sync</span>
+            </div>
+            
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Search for restaurant, cuisine or a dish">
+            </div>
+            <div class="nav-actions">
+                <button class="nav-btn" onclick="openDashboard()"><span class="icon">📅</span> My Schedule</button>
+                <div class="cart-wrapper" onclick="openCart()">
+                    <span class="icon">🛒</span> <span class="cart-label">Cart</span>
+                    <div class="cart-badge" id="nav-cart-count">0</div>
+                </div>
+                <div class="profile-icon" onclick="logout()" title="Logout" style="cursor: pointer;">
+                    <img src="https://ui-avatars.com/api/?name=User&background=ef4f5f&color=fff" alt="Profile">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- App Views -->
+    <main class="main-content">
+        
+        <!-- View 1: Home List of Restaurants -->
+        <div id="view-home" class="view active">
+            <!-- Hero / Categories Carousel -->
+            <section class="inspiration-section">
+                <h2>What's on your mind?</h2>
+                <div class="categories-list" id="categories-container">
+                    <!-- Populated via JS -->
+                </div>
+            </section>
+            <hr class="divider">
+            <!-- Restaurants Grid -->
+            <section class="restaurants-section">
+                <h2>Restaurants with online smart-scheduling</h2>
+                <div class="filters">
+                    <button class="filter-btn active">Delivery</button>
+                    <button class="filter-btn">Pre-order for week 📅</button>
+                    <button class="filter-btn">Rating 4.0+</button>
+                    <button class="filter-btn">Offers</button>
+                </div>
+                <div class="restaurant-grid" id="restaurants-grid">
+                    <!-- Cards populated via JS -->
+                </div>
+            </section>
+        </div>
+        <!-- View 2: Specific Restaurant Menu -->
+        <div id="view-restaurant" class="view">
+            <button class="back-btn" onclick="showHome()">← Back to Restaurants</button>
+            <div id="restaurant-header">
+                <!-- Dynamically injected Header -->
+            </div>
+            
+            <div class="menu-container">
+                <div class="menu-sidebar">
+                    <ul id="menu-categories">
+                        <li class="active">Recommended</li>
+                        <li>Specials</li>
+                        <li>Desserts</li>
+                    </ul>
+                </div>
+                <div class="menu-list" id="menu-items">
+                    <!-- Menu items via JS -->
+                </div>
+            </div>
+        </div>
+        <!-- View 3: Dashboard (Pre-Order Setup Tracking) -->
+        <div id="view-dashboard" class="view">
+            <button class="back-btn" onclick="showHome()">← Back to Home</button>
+            <h2 style="margin-bottom: 12px;">My Scheduled Orders & Weekly Plan</h2>
+            <p style="color:var(--text-muted); margin-bottom: 24px;">Your Zomato/Swiggy pre-orders managed effectively.</p>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Upcoming Deliveries</h3>
+                    <div id="upcoming-list" class="upcoming-list"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Sticky Cart Strip (Bottom of screen when viewing menu) -->
+    <div class="sticky-cart-strip" id="sticky-cart">
+        <div class="strip-info">
+            <span id="strip-count">1 Item</span> | <span id="strip-price">₹1450.00</span>
+        </div>
+        <button class="strip-btn" onclick="openCart()">View Cart ➡</button>
+    </div>
+    <!-- Cart Overlay & Sidebar -->
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <aside class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart-btn" onclick="closeCart()">&times;</button>
+        </div>
+        
+        <div class="cart-body">
+            <div id="cart-items-container" class="cart-items-list">
+                <!-- Cart internal items -->
+            </div>
+            
+            <div class="cart-summary" id="cart-summary">
+                <div class="summary-row"><span>Subtotal</span><span id="cart-subtotal">₹0.00</span></div>
+                <div class="summary-row"><span>Delivery Fee</span><span>₹40.00</span></div>
+                <div class="summary-row bold"><span>Total</span><span id="cart-total">₹0.00</span></div>
+            </div>
+            <div class="scheduling-section">
+                <h3>Smart Schedule Setup <span class="badge-new">NEW</span></h3>
+                <p class="schedule-desc">This adds our extra smart-scheduling feature so you can get this delivered next week.</p>
+                <form id="schedule-form">
+                    <div class="form-group">
+                        <label>Select Date</label>
+                        <input type="date" id="schedule-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Time</label>
+                        <input type="time" id="schedule-time" required>
+                    </div>
+                    <div style="margin-top:20px;">
+                        <button type="submit" class="checkout-btn" id="btn-checkout">Schedule Order <span id="checkout-total"></span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </aside>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content" id="toast-msg">Added to Cart!</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
