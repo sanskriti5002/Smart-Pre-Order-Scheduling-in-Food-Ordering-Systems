@@ -1,52 +1,142 @@
-# 🍽️ GourmetSync - Smart Food Pre-Ordering & Delivery
+# 🍽️ GourmetSync – Smart Food Pre-Ordering & Delivery
 
-Welcome to **GourmetSync**, a highly interactive web application built for a Web Technology Project. GourmetSync reimagines the food delivery experience (inspired by robust platforms like Zomato and Swiggy) by introducing a unique **Smart Schedule** feature, allowing users to meticulously plan and pre-order their meals for the entire week.
+GourmetSync is a modern web-based food ordering platform that redefines convenience by allowing users to **schedule and pre-order meals in advance**. Inspired by platforms like Zomato and Swiggy, it focuses on **weekly meal planning**, smart scheduling, and a clean corporate UI experience.
 
 ---
 
-## ✨ Key Features
+## 🚀 Concept
 
-- **Modern Corporate UI/UX**: Designed with a bright, minimalist aesthetic matching top-tier tech startups. Eliminates generic dark/glow templates for a realistic, clean interface.
-- **Multi-Page Routing Flow**:
-  - `index.html`: A stunning presentation landing page outlining the platform.
-  - `login.html`: A secure, minimalist login portal with simulated authentication workflows.
-  - `app.html`: The core, lightning-fast Single Page Application (SPA) feed.
-- **Interactive Hyper-Discovery**: Browse 15+ rich mock restaurants (heavily focusing on Indian Daily Food) and over 50+ beautiful dishes seamlessly.
-- **Flipkart-Style Dynamic Reviews**: An expandable customer review section for *every* dish, displaying dynamic ★ Good and ★ Bad ratings realistically.
-- **Smart Cart Scheduling**: A custom cart workflow that prompts users to select a future Date and Time slot before allowing the final checkout.
-- **Stateful Local Dashboard**: Leverages browser `localStorage` to securely save, track, and manage all your scheduled long-term deliveries, including an instant-cancel feature.
-- **Full INR Customization**: All data, shopping carts, delivery math, and UI elements are completely scaled and localized into Indian Rupees (₹).
+> Plan your meals today. Eat stress-free tomorrow.
+
+---
+
+## ✨ Features
+
+### 🎨 Modern UI/UX
+- Clean, minimalist corporate design
+- Responsive layout
+- Real-world app-like interface
+
+### 🔐 Multi-Page Routing
+- `index.html` → Landing page  
+- `login.html` → Login portal  
+- `app.html` → Main application (SPA-like behavior)  
+
+### 🍛 Rich Food Discovery
+- 15+ mock restaurants  
+- 50+ dishes (Indian cuisine focused)  
+- Smooth browsing experience  
+
+### ⭐ Dynamic Reviews System
+- Expandable reviews for each dish  
+- Displays ★ Good and ★ Bad ratings  
+- Realistic customer feedback UI  
+
+### 🛒 Smart Cart Scheduling (Core Feature)
+- Select delivery:
+  - 📅 Date  
+  - ⏰ Time slot  
+- Enables advance meal planning  
+
+### 📊 Stateful Dashboard
+- Uses `localStorage`  
+- Features:
+  - View scheduled orders  
+  - Cancel orders instantly  
+  - Persistent data storage  
+
+### 🇮🇳 Indian Localization
+- All prices in ₹ (INR)  
+- Localized UI and calculations  
 
 ---
 
 ## 🛠️ Tech Stack
 
-This project was built **purely from scratch** without relying on heavy frontend frameworks, demonstrating a strong fundamental grasp of core web concepts.
-
-- **HTML5**: Semantic structure and accessible custom component layouts.
-- **Vanilla CSS3**: Advanced Flexbox/Grid systems, responsive media queries, CSS variables (Custom Properties), and modern visual styling methods (Drop-shadows, animations).
-- **Vanilla JavaScript (ES6)**: 
-  - Dynamic, instantaneous DOM manipulation (rendering dynamic menus and reviews).
-  - Object/Array filtering for state handling.
-  - Persistent User Data Management using the `Window.localStorage` API.
-  - Client-side Route Protection (auto-redirecting unauthorized users back to the Login wall).
-
----
-
-## 🚀 Quick Start Guide
-
-1. **Extract the Project Folder**.
-2. **Launch**: No servers or dependencies are required. Simply double-click **`index.html`** to open the project in any modern web browser (Google Chrome, Microsoft Edge, Firefox).
-3. **Experience**: 
-   - Read the Landing Page (`index.html`).
-   - Click to proceed to the secure Login portal (`login.html`).
-   - "Sign In" to be securely routed to the Main Feed (`app.html`).
-   - Add Indian lunch options to your Cart.
-   - Pick a Date and Time in the sidebar to schedule your order.
-   - Navigate to the **📅 My Schedule** tab to view your saved data!
+- **HTML5** – Structure  
+- **CSS3** – Styling (Flexbox, Grid, Animations)  
+- **JavaScript (ES6)**  
+  - DOM manipulation  
+  - State management  
+  - LocalStorage  
+  - Route protection  
+  - Authentication simulation  
 
 ---
 
-## 👨‍💻 Project Details
-**Course**: Web Technology Project   
-*Built to showcase proficiency in responsive aesthetics, persistent JavaScript logic, and consumer application routing.*
+## ⚡ How to Run
+
+No installation required.
+
+### Steps:
+1. Download or clone the repository:
+   ```bash
+   git clone https://github.com/your-username/gourmetsync.git
+   ```
+
+2. Open the project folder
+
+3. Run the project:
+   - Double-click `index.html`
+
+4. Explore:
+   - Open landing page  
+   - Login (simulated)  
+   - Browse food  
+   - Add to cart  
+   - Schedule orders  
+   - View **My Schedule**  
+
+---
+
+## 📂 Project Structure
+
+```
+GourmetSync/
+│── index.html
+│── login.html
+│── app.html
+│── css/
+│── js/
+│── assets/
+```
+
+---
+
+## 🎯 Key Learnings
+
+- Vanilla JavaScript application building  
+- SPA-like behavior without frameworks  
+- LocalStorage-based persistence  
+- UI/UX design principles  
+- Client-side routing and authentication  
+
+---
+
+## 💡 Problem Solved
+
+❌ Existing apps → Require ordering every time  
+✅ GourmetSync → Allows **pre-planned weekly meal scheduling**
+
+---
+
+## 📌 Future Enhancements
+
+- Backend integration (Node.js + Database)  
+- Real authentication system  
+- Payment gateway  
+- Notifications for scheduled meals  
+- AI-based recommendations  
+
+---
+
+## 👩‍💻 Author
+
+**Sanskriti Gupta**  
+B.Tech CSE Student  
+
+---
+
+## 📜 License
+
+This project is created for educational purposes as part of a Web Technology course.
