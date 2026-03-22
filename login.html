@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GourmetSync - Login</title>
+    <title>Crave - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
@@ -43,7 +43,7 @@
 </head>
 <body>
     <div class="login-card">
-        <div class="logo">🍽️ Gourmet<span>Sync</span></div>
+        <div class="logo">ðŸ½ï¸ Gourmet<span>Sync</span></div>
         <div class="subtitle">Sign in to your account securely to manage your scheduled deliveries.</div>
         
         <form id="auth-form">
@@ -69,10 +69,12 @@
             const btn = document.getElementById('submit-btn');
             btn.classList.add('loading');
             setTimeout(() => {
-                localStorage.setItem('gourmetSyncAuth', 'true');
+                localStorage.setItem('CraveAuth', 'true');
                 window.location.href = 'app.html';
             }, 1000);
         });
     </script>
 </body>
 </html>
+
+
