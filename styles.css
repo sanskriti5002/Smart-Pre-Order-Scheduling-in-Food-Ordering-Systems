@@ -153,9 +153,22 @@ body { background-color: var(--white); color: var(--text-dark); }
 
 /* Scheduling */
 .scheduling-section { background: var(--white); padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-.scheduling-section h3 { font-size: 16px; margin-bottom: 10px; display:flex; align-items:center; gap:8px; }
+.scheduling-section h3 { font-size: 16px; margin-bottom: 16px; display:flex; align-items:center; gap:8px; }
 .badge-new { background: var(--brand-color); color: var(--white); padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; }
 .schedule-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4; }
+
+/* Order Type Selector */
+.order-type-selector { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.order-type-option { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border: 2px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; background: var(--bg-light); }
+.order-type-option:hover { border-color: var(--brand-color); background: var(--white); }
+.order-type-option input[type="radio"] { margin-top: 4px; cursor: pointer; accent-color: var(--brand-color); width: 18px; height: 18px; flex-shrink: 0; }
+.order-type-option input[type="radio"]:checked + .option-label { color: var(--brand-color); font-weight: 600; }
+.order-type-option input[type="radio"]:checked { outline: 2px solid var(--brand-color); outline-offset: 2px; }
+.option-label { font-size: 16px; font-weight: 500; color: var(--text-dark); display: flex; align-items: center; gap: 6px; }
+.option-desc { font-size: 13px; color: var(--text-muted); margin-left: 30px; }
+
+.schedule-fields { animation: slideDown 0.3s ease; }
+
 .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
 .form-group label { font-size: 14px; font-weight: 600; color: var(--text-dark); }
 .form-group input { padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 15px; outline: none; transition: border 0.2s; }
@@ -179,7 +192,7 @@ body { background-color: var(--white); color: var(--text-dark); }
 .dash-item-name { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
 .dash-item-restaurant { font-size: 15px; color: var(--text-muted); }
 .dash-item-datetime { text-align: right; }
-.dash-status { background: var(--bg-light); color: var(--brand-color); padding: 6px 12px; border-radius: 100px; font-size: 13px; font-weight: 700; margin-bottom: 8px; display: inline-block; }
+.dash-status { background: var(--bg-light); color: var(--brand-color); padding: 6px 12px; border-radius: 100px; font-size: 13px; font-weight: 700; margin-bottom: 8px; display: inline-block; transition: all 0.2s; }
 
 @media (max-width: 768px) { .menu-container { grid-template-columns: 1fr; gap: 20px; } .menu-sidebar { display: none; } .restaurant-grid { grid-template-columns: 1fr; } .nav-actions .nav-btn { display: none; } }
 
