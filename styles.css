@@ -11,6 +11,7 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
 body { background-color: var(--white); color: var(--text-dark); }
+
 /* Navbar */
 .navbar { position: sticky; top: 0; background: var(--white); box-shadow: 0 2px 15px rgba(0,0,0,0.06); z-index: 100; }
 .nav-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
@@ -27,11 +28,13 @@ body { background-color: var(--white); color: var(--text-dark); }
 .cart-wrapper:hover { background: var(--bg-light); }
 .cart-badge { position: absolute; top: -2px; right: -4px; background: var(--brand-color); color: var(--white); font-size: 11px; font-weight: 700; height: 18px; min-width: 18px; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 0 4px; }
 .profile-icon img { width: 36px; height: 36px; border-radius: 50%; }
+
 /* Main Content */
 .main-content { max-width: 1200px; margin: 0 auto; padding: 30px 20px 100px; }
 .view { display: none; }
 .view.active { display: block; animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
 /* Inspiration Section */
 .inspiration-section h2 { font-size: 24px; margin-bottom: 20px; }
 .categories-list { display: flex; gap: 30px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
@@ -41,12 +44,14 @@ body { background-color: var(--white); color: var(--text-dark); }
 .category-item:hover .category-img { transform: scale(1.05); }
 .category-item span { font-size: 16px; font-weight: 500; color: var(--text-dark); }
 .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
 /* Restaurants Grid */
 .restaurants-section h2 { font-size: 28px; margin-bottom: 16px; }
 .filters { display: flex; gap: 12px; margin-bottom: 30px; }
 .filter-btn { background: var(--white); border: 1px solid var(--border); padding: 10px 18px; border-radius: 100px; font-size: 14px; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
 .filter-btn:hover { background: var(--bg-light); }
 .filter-btn.active { background: var(--brand-color); color: var(--white); border-color: var(--brand-color); }
+
 .restaurant-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px 30px; }
 .restaurant-card { border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; background: var(--white); }
 .restaurant-card:hover { transform: scale(0.98); }
@@ -56,6 +61,7 @@ body { background-color: var(--white); color: var(--text-dark); }
 .card-name { font-size: 20px; font-weight: 600; }
 .card-rating { background: var(--rating-green); color: var(--white); padding: 4px 8px; border-radius: 8px; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 4px; }
 .card-meta { display: flex; justify-content: space-between; color: var(--text-muted); font-size: 15px; }
+
 /* Restaurant Menu View */
 .back-btn { background: none; border: none; font-size: 15px; color: var(--brand-color); font-weight: 600; cursor: pointer; margin-bottom: 20px; padding: 8px 0; }
 .restaurant-header-hero { border-radius: 20px; overflow: hidden; position: relative; height: 350px; margin-bottom: 40px; }
@@ -63,10 +69,12 @@ body { background-color: var(--white); color: var(--text-dark); }
 .restaurant-header-info { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 40px 40px 30px; color: var(--white); }
 .restaurant-header-info h1 { font-size: 42px; margin-bottom: 10px; }
 .restaurant-tags { font-size: 16px; opacity: 0.95; }
+
 .menu-container { display: grid; grid-template-columns: 220px 1fr; gap: 50px; }
 .menu-sidebar ul { list-style: none; position: sticky; top: 100px; }
 .menu-sidebar li { padding: 14px 16px; font-size: 16px; font-weight: 600; cursor: pointer; color: var(--text-muted); border-right: 3px solid transparent; }
 .menu-sidebar li.active, .menu-sidebar li:hover { color: var(--brand-color); border-right-color: var(--brand-color); background: linear-gradient(90deg, transparent, rgba(239, 79, 95, 0.05)); }
+
 .menu-list { display: flex; flex-direction: column; gap: 30px; }
 .menu-item-card { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 30px; border-bottom: 1px solid var(--border); }
 .menu-item-info { flex-grow: 1; display: flex; flex-direction: column; }
@@ -77,6 +85,7 @@ body { background-color: var(--white); color: var(--text-dark); }
 .menu-item-img { width: 150px; height: 150px; object-fit: cover; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
 .add-btn { position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); background: var(--white); color: var(--success); border: 1px solid var(--border); padding: 10px 28px; border-radius: 8px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.2s; text-transform: uppercase; }
 .add-btn:hover { background: var(--bg-light); transform: translateX(-50%) translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+
 /* FLIPKART REVIEWS CSS EXTENSION */
 .fk-reviews-container {
     margin-top: 14px;
@@ -104,6 +113,7 @@ body { background-color: var(--white); color: var(--text-dark); }
 }
 .fk-details.open { display: block; animation: slideDown 0.3s ease; }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
 .fk-review { margin-bottom: 10px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px; }
 .fk-review:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
 .fk-badge {
@@ -113,11 +123,14 @@ body { background-color: var(--white); color: var(--text-dark); }
 .fk-bad { background: #ef4f5f; }
 .fk-text { font-size: 13px; color: #334155; font-weight: 500; }
 .fk-user { font-size: 11px; color: #94a3b8; margin-top: 6px; font-style: italic; }
+
+
 /* Sticky Cart Strip */
 .sticky-cart-strip { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 800px; background: var(--success); color: var(--white); padding: 18px 30px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 25px rgba(58, 183, 87, 0.4); transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 200; }
 .sticky-cart-strip.show { bottom: 30px; }
 .strip-info { font-size: 18px; font-weight: 600; }
 .strip-btn { background: none; border: none; color: var(--white); font-size: 18px; font-weight: 700; cursor: pointer; }
+
 /* Cart Sidebar / Modal */
 .cart-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 900; }
 .cart-overlay.active { opacity: 1; pointer-events: all; }
@@ -137,6 +150,7 @@ body { background-color: var(--white); color: var(--text-dark); }
 .cart-summary { background: var(--white); padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
 .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 15px; color: var(--text-muted); }
 .summary-row.bold { font-size: 18px; font-weight: 700; color: var(--text-dark); margin-top: 16px; border-top: 1px dashed var(--border); padding-top: 16px; }
+
 /* Scheduling */
 .scheduling-section { background: var(--white); padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
 .scheduling-section h3 { font-size: 16px; margin-bottom: 10px; display:flex; align-items:center; gap:8px; }
@@ -149,9 +163,11 @@ body { background-color: var(--white); color: var(--text-dark); }
 .cart-footer { padding: 24px; background: var(--white); border-top: 1px solid var(--border); }
 .checkout-btn { width: 100%; background: var(--brand-color); color: var(--white); border: none; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(239, 79, 95, 0.3); transition: background 0.2s; }
 .checkout-btn:hover { background: var(--brand-hover); }
+
 /* Toast */
 .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: #1c1c1c; color: var(--white); padding: 16px 28px; border-radius: 10px; font-weight: 500; transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 .toast.show { bottom: 40px; }
+
 /* Dashboard List */
 .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
 .dashboard-card { border: 1px solid var(--border); border-radius: 16px; padding: 30px; background: var(--white); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
@@ -164,4 +180,32 @@ body { background-color: var(--white); color: var(--text-dark); }
 .dash-item-restaurant { font-size: 15px; color: var(--text-muted); }
 .dash-item-datetime { text-align: right; }
 .dash-status { background: var(--bg-light); color: var(--brand-color); padding: 6px 12px; border-radius: 100px; font-size: 13px; font-weight: 700; margin-bottom: 8px; display: inline-block; }
+
 @media (max-width: 768px) { .menu-container { grid-template-columns: 1fr; gap: 20px; } .menu-sidebar { display: none; } .restaurant-grid { grid-template-columns: 1fr; } .nav-actions .nav-btn { display: none; } }
+
+
+/* Added logo-icon for Crave branding */
+.logo-icon {
+    background: var(--brand-color);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    box-shadow: 0 5px 10px rgba(239, 79, 95, 0.3);
+}
+.cart-sidebar {
+    /* Ensure z-index is high enough */
+    z-index: 1000;
+}
+.user-menu-list li {
+    transition: background 0.2s;
+}
+.user-menu-list li:hover {
+    background: #f1f1f1;
+}
+
