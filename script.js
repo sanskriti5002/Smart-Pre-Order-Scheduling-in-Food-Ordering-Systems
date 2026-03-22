@@ -1,4 +1,4 @@
-// Auth Check
+/ Auth Check
 if (!localStorage.getItem('CraveAuth')) {
     window.location.href = 'login.html';
 }
@@ -420,13 +420,50 @@ window.updateQty = function(index, delta) {
     updateCartUI();
 }
 
-// Form Submission (Scheduling checkout)
+// Order Type Toggle
+document.addEventListener('DOMContentLoaded', () => {
+    const orderTypeRadios = document.querySelectorAll('input[name="orderType"]');
+    const scheduleFields = document.getElementById('schedule-fields');
+    
+    orderTypeRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            if (radio.value === 'scheduled') {
+                scheduleFields.style.display = 'block';
+                document.getElementById('schedule-date').setAttribute('required', 'required');
+                document.getElementById('schedule-time').setAttribute('required', 'required');
+            } else {
+                scheduleFields.style.display = 'none';
+                document.getElementById('schedule-date').removeAttribute('required');
+                document.getElementById('schedule-time').removeAttribute('required');
+            }
+        });
+    });
+});
+
+// Form Submission (Normal & Scheduled Checkout)
 scheduleForm.addEventListener('submit', (e) => {
     e.preventDefault();
     if (currentCart.length === 0) return;
     
-    const dateVal = document.getElementById('schedule-date').value;
-    const timeVal = document.getElementById('schedule-time').value;
+    const orderType = document.querySelector('input[name="orderType"]:checked').value;
+    let dateVal = '';
+    let timeVal = '';
+    
+    // Get scheduled values only if user selected scheduled
+    if (orderType === 'scheduled') {
+        dateVal = document.getElementById('schedule-date').value;
+        timeVal = document.getElementById('schedule-time').value;
+        
+        if (!dateVal || !timeVal) {
+            showToast('Please select date and time for scheduled order');
+            return;
+        }
+    } else {
+        // For normal orders, use today's date and current time
+        const now = new Date();
+        dateVal = now.toISOString().split('T')[0];
+        timeVal = now.toTimeString().slice(0, 5);
+    }
     
     currentCart.forEach(item => {
         for(let i=0; i<item.qty; i++){
@@ -436,7 +473,8 @@ scheduleForm.addEventListener('submit', (e) => {
                 date: dateVal,
                 time: timeVal,
                 restaurant: item.restaurantName,
-                status: 'Confirmed'
+                status: orderType === 'scheduled' ? 'Confirmed' : 'Preparing',
+                orderType: orderType
             });
         }
     });
@@ -444,10 +482,15 @@ scheduleForm.addEventListener('submit', (e) => {
     localStorage.setItem('CraveOrders', JSON.stringify(orders));
     currentCart = [];
     updateCartUI();
-    showToast("Successfully scheduled!");
+    
+    const message = orderType === 'scheduled' ? 'Order scheduled successfully!' : 'Order placed! Please arrive for pickup.';
+    showToast(message);
     closeCart();
     openDashboard(); // Go to dashboard to see it
     scheduleForm.reset();
+    
+    // Reset to normal order type
+    document.querySelector('input[name="orderType"][value="normal"]').checked = true;
 });
 
 function showToast(msg) {
@@ -466,7 +509,7 @@ function renderDashboard() {
     const sortedOrders = [...orders].sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
     
     if (sortedOrders.length === 0) {
-        upcomingList.innerHTML = '<p style="color:var(--text-muted);">No orders scheduled yet. Try exploring restaurants.</p>';
+        upcomingList.innerHTML = '<p style="color:var(--text-muted);">No orders yet. Try exploring restaurants.</p>';
         return;
     }
     
@@ -475,10 +518,23 @@ function renderDashboard() {
         const fDate = dateObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
         const fTime = dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
         
+        // Determine icon and badge based on order type
+        let icon = '📅';
+        let statusLabel = 'Scheduled';
+        let statusBgColor = 'rgba(239, 79, 95, 0.1)';
+        let statusColor = 'var(--brand-color)';
+        
+        if (order.orderType === 'normal') {
+            icon = '🚚';
+            statusLabel = 'Preparing';
+            statusBgColor = 'rgba(58, 183, 87, 0.1)';
+            statusColor = 'var(--success)';
+        }
+        
         upcomingList.innerHTML += `
             <div class="dash-item">
                 <div class="dash-item-info">
-                    <span class="dash-status">&#128197; Scheduled</span>
+                    <span class="dash-status" style="background: ${statusBgColor}; color: ${statusColor};">${icon} ${statusLabel}</span>
                     <div class="dash-item-name">${order.meal}</div>
                     <div class="dash-item-restaurant">From: ${order.restaurant}</div>
                 </div>
@@ -571,4 +627,5 @@ window.filterRestaurants = function(category) {
     }
     showToast(`Filtered by ${category}!`);
 }
+
 
