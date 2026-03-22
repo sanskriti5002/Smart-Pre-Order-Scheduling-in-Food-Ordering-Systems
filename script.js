@@ -1,15 +1,18 @@
 // Auth Check
-if (!localStorage.getItem('gourmetSyncAuth')) {
+if (!localStorage.getItem('CraveAuth')) {
     window.location.href = 'login.html';
 }
+
 // State Management
-let orders = JSON.parse(localStorage.getItem('gourmetSyncOrders')) || [];
+let orders = JSON.parse(localStorage.getItem('CraveOrders')) || [];
 let currentCart = []; 
 let currentRestaurant = null;
+
 // Mock Reviews Generator (Flipkart Style)
 const mockGoodReviews = ["Absolutely delicious! Real authentic taste.", "Loved it! Will order again soon.", "Perfectly spiced and served hot.", "Best I have had in a long time.", "Great packaging and amazing flavor.", "Highly recommended for lunch!"];
 const mockBadReviews = ["Portion size was a bit small.", "Too oily for my liking.", "Arrived a bit cold.", "Not exactly what I expected.", "Too spicy for me.", "Could be better packaged."];
 const fakeUsers = ["Rohit K.", "Sneha P.", "Amit S.", "Priya M.", "Vikram D.", "Neha R.", "Karan B.", "Rahul T.", "Anjali V."];
+
 function generateReviews() {
     let revs = [];
     let numGood = Math.floor(Math.random() * 2) + 1;
@@ -31,11 +34,13 @@ function generateReviews() {
     }
     return revs;
 }
+
 function getAverageRating(revs) {
     if(revs.length === 0) return "0.0";
     let sum = revs.reduce((a,b)=>a+b.rating, 0);
     return (sum / revs.length).toFixed(1);
 }
+
 // Fixed Images (Guaranteed not to 404)
 const IMG_THALI = 'https://images.unsplash.com/photo-1585937421612-70a008356fbe';
 const IMG_CURRY = 'https://images.unsplash.com/photo-1565557623262-b51c2513a641';
@@ -46,6 +51,7 @@ const IMG_PIZZA = 'https://images.unsplash.com/photo-1513104890138-7c749659a591'
 const IMG_BURGER = 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd';
 const IMG_SUSHI = 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c';
 const IMG_STREET = 'https://images.unsplash.com/photo-1606491956689-2ea866880c84';
+
 // Mock Data
 const categories = [
     { name: 'Thali', img: IMG_THALI + '?w=150&fit=crop' },
@@ -57,12 +63,13 @@ const categories = [
     { name: 'Burger', img: IMG_BURGER + '?w=150&fit=crop' },
     { name: 'Sushi', img: IMG_SUSHI + '?w=150&fit=crop' },
 ];
+
 const restaurants = [
     {
         id: 'r1',
         name: 'The Spice Symphony',
         rating: '4.8',
-        meta: 'North Indian, Mughlai • ₹₹',
+        meta: 'North Indian, Mughlai &bull; &#8377;&#8377;',
         time: '35 min',
         heroImg: IMG_CURRY + '?w=1200&fit=crop',
         cardImg: IMG_CURRY + '?w=400&fit=crop',
@@ -77,7 +84,7 @@ const restaurants = [
         id: 'r5',
         name: 'Maa Ki Rasoi (Daily Lunch)',
         rating: '4.9',
-        meta: 'Indian, Homestyle • ₹',
+        meta: 'Indian, Homestyle &bull; &#8377;',
         time: '30 min',
         heroImg: IMG_THALI + '?w=1200&fit=crop',
         cardImg: IMG_THALI + '?w=400&fit=crop',
@@ -93,7 +100,7 @@ const restaurants = [
         id: 'r6',
         name: 'The Lunchbox Co.',
         rating: '4.6',
-        meta: 'North Indian, Office Meals • ₹₹',
+        meta: 'North Indian, Office Meals &bull; &#8377;&#8377;',
         time: '40 min',
         heroImg: IMG_BIRYANI + '?w=1200&fit=crop',
         cardImg: IMG_BIRYANI + '?w=400&fit=crop',
@@ -108,7 +115,7 @@ const restaurants = [
         id: 'r7',
         name: 'Curry & Rice Express',
         rating: '4.7',
-        meta: 'Indian, Healthy • ₹',
+        meta: 'Indian, Healthy &bull; &#8377;',
         time: '25 min',
         heroImg: IMG_STREET + '?w=1200&fit=crop',
         cardImg: IMG_STREET + '?w=400&fit=crop',
@@ -123,7 +130,7 @@ const restaurants = [
         id: 'r8',
         name: 'South Indian Delights',
         rating: '4.9',
-        meta: 'South Indian, Street Food • ₹₹',
+        meta: 'South Indian, Street Food &bull; &#8377;&#8377;',
         time: '35 min',
         heroImg: IMG_HEALTHY + '?w=1200&fit=crop',
         cardImg: IMG_HEALTHY + '?w=400&fit=crop',
@@ -137,7 +144,7 @@ const restaurants = [
         id: 'r11',
         name: 'Gujarati Rasoi',
         rating: '4.5',
-        meta: 'Gujarati, Vegetarian • ₹',
+        meta: 'Gujarati, Vegetarian &bull; &#8377;',
         time: '35 min',
         heroImg: IMG_THALI + '?w=1200&fit=crop',
         cardImg: IMG_THALI + '?w=400&fit=crop',
@@ -151,7 +158,7 @@ const restaurants = [
         id: 'r13',
         name: 'Beijing Bites',
         rating: '4.4',
-        meta: 'Chinese, Asian • ₹₹',
+        meta: 'Chinese, Asian &bull; &#8377;&#8377;',
         time: '40 min',
         heroImg: IMG_HEALTHY + '?w=1200&fit=crop',
         cardImg: IMG_HEALTHY + '?w=400&fit=crop',
@@ -165,7 +172,7 @@ const restaurants = [
         id: 'r15',
         name: 'Biryani Central',
         rating: '4.8',
-        meta: 'Indian, Mughlai • ₹₹',
+        meta: 'Indian, Mughlai &bull; &#8377;&#8377;',
         time: '45 min',
         heroImg: IMG_BIRYANI + '?w=1200&fit=crop',
         cardImg: IMG_BIRYANI + '?w=400&fit=crop',
@@ -175,34 +182,48 @@ const restaurants = [
         ]
     }
 ];
+
 // DOM Elements
 const viewHome = document.getElementById('view-home');
 const viewRestaurant = document.getElementById('view-restaurant');
 const viewDashboard = document.getElementById('view-dashboard');
+
 const categoriesContainer = document.getElementById('categories-container');
 const restaurantsGrid = document.getElementById('restaurants-grid');
+
 const restHeaderContainer = document.getElementById('restaurant-header');
 const menuItemsContainer = document.getElementById('menu-items');
 const stickyCart = document.getElementById('sticky-cart');
+
 const cartOverlay = document.getElementById('cart-overlay');
 const cartSidebar = document.getElementById('cart-sidebar');
 const cartItemsContainer = document.getElementById('cart-items-container');
 const scheduleForm = document.getElementById('schedule-form');
+
 // Intialization
 function init() {
     renderHome();
     updateCartUI();
 }
+
 function renderHome() {
-    categoriesContainer.innerHTML = '';
+    
+    categoriesContainer.innerHTML = `
+        <div class="category-item" onclick="filterRestaurants('All')" style="min-width: 120px;">
+            <div class="category-img" style="background:#f0f0f5; display:flex; align-items:center; justify-content:center; font-size:24px;">↺</div>
+            <span>View All</span>
+        </div>
+    `;
     categories.forEach(cat => {
         categoriesContainer.innerHTML += `
-            <div class="category-item">
+            <div class="category-item" onclick="filterRestaurants('${cat.name}')" style="min-width: 120px;">
                 <img src="${cat.img}" alt="${cat.name}" class="category-img">
                 <span>${cat.name}</span>
             </div>
         `;
     });
+
+
     restaurantsGrid.innerHTML = '';
     restaurants.forEach(rest => {
         restaurantsGrid.innerHTML += `
@@ -211,7 +232,7 @@ function renderHome() {
                 <div class="card-info">
                     <div class="card-header">
                         <div class="card-name">${rest.name}</div>
-                        <div class="card-rating">★ ${rest.rating}</div>
+                        <div class="card-rating">&#9733; ${rest.rating}</div>
                     </div>
                     <div class="card-meta">
                         <span>${rest.meta}</span>
@@ -222,6 +243,7 @@ function renderHome() {
         `;
     });
 }
+
 // Navigation Functions
 window.showHome = function() {
     viewHome.classList.add('active');
@@ -230,6 +252,7 @@ window.showHome = function() {
     currentRestaurant = null;
     updateStickyCart();
 }
+
 window.openDashboard = function() {
     viewHome.classList.remove('active');
     viewRestaurant.classList.remove('active');
@@ -237,6 +260,7 @@ window.openDashboard = function() {
     renderDashboard();
     updateStickyCart();
 }
+
 window.openRestaurant = function(id) {
     const rest = restaurants.find(r => r.id === id);
     if(!rest) return;
@@ -247,10 +271,11 @@ window.openRestaurant = function(id) {
             <img src="${rest.heroImg}" alt="${rest.name}" class="restaurant-header-img" onerror="this.src='${IMG_BIRYANI}?w=1200&fit=crop'">
             <div class="restaurant-header-info">
                 <h1>${rest.name}</h1>
-                <p class="restaurant-tags">${rest.meta} • ★ ${rest.rating}</p>
+                <p class="restaurant-tags">${rest.meta} &bull; &#9733; ${rest.rating}</p>
             </div>
         </div>
     `;
+
     menuItemsContainer.innerHTML = '';
     rest.menu.forEach(item => {
         
@@ -260,12 +285,12 @@ window.openRestaurant = function(id) {
             reviewsHtml = `
             <div class="fk-reviews-container">
                 <div class="fk-reviews-header" onclick="document.getElementById('revs-${item.id}').classList.toggle('open')">
-                    Customer Reviews (★ ${avgRating}) <span>View All ▼</span>
+                    Customer Reviews (&#9733; ${avgRating}) <span>View All â–¼</span>
                 </div>
                 <div class="fk-details" id="revs-${item.id}">
                     ${item.reviews.map(r => `
                         <div class="fk-review">
-                            <span class="fk-badge ${r.type === 'good' ? 'fk-good' : 'fk-bad'}">${r.rating} ★</span>
+                            <span class="fk-badge ${r.type === 'good' ? 'fk-good' : 'fk-bad'}">${r.rating} &#9733;</span>
                             <div class="fk-text">"${r.text}"</div>
                             <div class="fk-user">- ${r.user}</div>
                         </div>
@@ -273,11 +298,12 @@ window.openRestaurant = function(id) {
                 </div>
             </div>`;
         }
+
         menuItemsContainer.innerHTML += `
             <div class="menu-item-card">
                 <div class="menu-item-info">
                     <div class="menu-item-name">${item.name}</div>
-                    <div class="menu-item-price">₹${item.price.toFixed(2)}</div>
+                    <div class="menu-item-price">&#8377;${item.price.toFixed(2)}</div>
                     <div class="menu-item-desc">${item.desc}</div>
                     ${reviewsHtml}
                 </div>
@@ -288,6 +314,7 @@ window.openRestaurant = function(id) {
             </div>
         `;
     });
+
     viewHome.classList.remove('active');
     viewDashboard.classList.remove('active');
     viewRestaurant.classList.add('active');
@@ -295,6 +322,7 @@ window.openRestaurant = function(id) {
     window.scrollTo(0, 0);
     updateStickyCart();
 }
+
 // Cart Logic
 window.addToCart = function(restaurantId, itemId) {
     if(!currentRestaurant) return;
@@ -312,41 +340,46 @@ window.addToCart = function(restaurantId, itemId) {
     showToast(`Added ${item.name} to cart!`);
     updateCartUI();
 }
+
 function updateCartUI() {
     let totalItems = currentCart.reduce((sum, item) => sum + item.qty, 0);
     document.getElementById('nav-cart-count').textContent = totalItems;
     updateStickyCart();
     renderCartSidebar();
 }
+
 function updateStickyCart() {
     if(currentCart.length > 0 && viewRestaurant.classList.contains('active')) {
         let totalItems = currentCart.reduce((sum, item) => sum + item.qty, 0);
         let totalPrice = currentCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
         
         document.getElementById('strip-count').textContent = `${totalItems} ITEM${totalItems > 1 ? 'S' : ''}`;
-        document.getElementById('strip-price').textContent = `₹${totalPrice.toFixed(2)}`;
+        document.getElementById('strip-price').textContent = `&#8377;${totalPrice.toFixed(2)}`;
         stickyCart.classList.add('show');
     } else {
         stickyCart.classList.remove('show');
     }
 }
+
 window.openCart = function() {
     renderCartSidebar();
     cartOverlay.classList.add('active');
     cartSidebar.classList.add('active');
 }
+
 window.closeCart = function() {
     cartOverlay.classList.remove('active');
     cartSidebar.classList.remove('active');
 }
+
 function renderCartSidebar() {
     cartItemsContainer.innerHTML = '';
     let subtotal = 0;
     
     if (currentCart.length === 0) {
         cartItemsContainer.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:40px 0;">Your cart is empty. Explore restaurants to add dishes!</p>';
-        document.getElementById('cart-subtotal').textContent = '₹0.00';
-        document.getElementById('cart-total').textContent = '₹0.00';
+        document.getElementById('cart-subtotal').textContent = '&#8377;0.00';
+        document.getElementById('cart-total').textContent = '&#8377;0.00';
         document.getElementById('btn-checkout').disabled = true;
         document.getElementById('checkout-total').textContent = '';
         return;
@@ -360,7 +393,7 @@ function renderCartSidebar() {
             <div class="cart-item">
                 <div style="flex-grow:1;">
                     <div class="cart-item-name">${item.name}</div>
-                    <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
+                    <div class="cart-item-price">&#8377;${item.price.toFixed(2)}</div>
                 </div>
                 <div class="cart-item-controls">
                     <button class="control-btn" onclick="updateQty(${index}, -1)">-</button>
@@ -374,10 +407,11 @@ function renderCartSidebar() {
     const deliveryFee = 40.00;
     const total = subtotal + deliveryFee;
     
-    document.getElementById('cart-subtotal').textContent = '₹' + subtotal.toFixed(2);
-    document.getElementById('cart-total').textContent = '₹' + total.toFixed(2);
-    document.getElementById('checkout-total').textContent = ' • ₹' + total.toFixed(2);
+    document.getElementById('cart-subtotal').textContent = '&#8377;' + subtotal.toFixed(2);
+    document.getElementById('cart-total').textContent = '&#8377;' + total.toFixed(2);
+    document.getElementById('checkout-total').textContent = ' &bull; &#8377;' + total.toFixed(2);
 }
+
 window.updateQty = function(index, delta) {
     currentCart[index].qty += delta;
     if(currentCart[index].qty <= 0) {
@@ -385,6 +419,7 @@ window.updateQty = function(index, delta) {
     }
     updateCartUI();
 }
+
 // Form Submission (Scheduling checkout)
 scheduleForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -406,7 +441,7 @@ scheduleForm.addEventListener('submit', (e) => {
         }
     });
     
-    localStorage.setItem('gourmetSyncOrders', JSON.stringify(orders));
+    localStorage.setItem('CraveOrders', JSON.stringify(orders));
     currentCart = [];
     updateCartUI();
     showToast("Successfully scheduled!");
@@ -414,6 +449,7 @@ scheduleForm.addEventListener('submit', (e) => {
     openDashboard(); // Go to dashboard to see it
     scheduleForm.reset();
 });
+
 function showToast(msg) {
     const toast = document.getElementById('toast');
     document.getElementById('toast-msg').textContent = msg;
@@ -422,6 +458,7 @@ function showToast(msg) {
         toast.classList.remove('show');
     }, 3000);
 }
+
 function renderDashboard() {
     const upcomingList = document.getElementById('upcoming-list');
     upcomingList.innerHTML = '';
@@ -441,7 +478,7 @@ function renderDashboard() {
         upcomingList.innerHTML += `
             <div class="dash-item">
                 <div class="dash-item-info">
-                    <span class="dash-status">📅 Scheduled</span>
+                    <span class="dash-status">&#128197; Scheduled</span>
                     <div class="dash-item-name">${order.meal}</div>
                     <div class="dash-item-restaurant">From: ${order.restaurant}</div>
                 </div>
@@ -454,14 +491,84 @@ function renderDashboard() {
         `;
     });
 }
+
 window.cancelOrder = function(id) {
     orders = orders.filter(order => order.id !== id);
-    localStorage.setItem('gourmetSyncOrders', JSON.stringify(orders));
+    localStorage.setItem('CraveOrders', JSON.stringify(orders));
     renderDashboard();
 }
+
 window.logout = function() {
-    localStorage.removeItem('gourmetSyncAuth');
+    localStorage.removeItem('CraveAuth');
     window.location.href = 'login.html';
 }
+
 // Run init
 init();
+
+
+
+window.openUserMenu = function() {
+    document.getElementById('cart-overlay').classList.add('active');
+    document.getElementById('user-sidebar').classList.add('active');
+}
+
+window.closeUserMenu = function() {
+    document.getElementById('cart-overlay').classList.remove('active');
+    document.getElementById('user-sidebar').classList.remove('active');
+}
+
+window.filterRestaurants = function(category) {
+    if(!category || category.toLowerCase() === 'all') {
+        renderHome();
+        return;
+    }
+    const filtered = restaurants.filter(r => 
+        r.meta.toLowerCase().includes(category.toLowerCase()) || 
+        r.menu.some(m => m.name.toLowerCase().includes(category.toLowerCase()))
+    );
+
+    categoriesContainer.innerHTML = '';
+    
+    // Explicit All option
+    categoriesContainer.innerHTML += `
+        <div class="category-item" onclick="filterRestaurants('All')" style="min-width: 120px;">
+            <div class="category-img" style="background:#f0f0f5; display:flex; align-items:center; justify-content:center; font-size:24px;">↺</div>
+            <span>View All</span>
+        </div>
+    `;
+
+    categories.forEach(cat => {
+        categoriesContainer.innerHTML += `
+            <div class="category-item" onclick="filterRestaurants('${cat.name}')" style="min-width: 120px;">
+                <img src="${cat.img}" alt="${cat.name}" class="category-img">
+                <span class="${cat.name === category ? 'active-filter' : ''}" style="${cat.name === category ? 'color: var(--brand-color); font-weight: bold;' : ''}">${cat.name}</span>
+            </div>
+        `;
+    });
+
+    restaurantsGrid.innerHTML = '';
+    if (filtered.length === 0) {
+        restaurantsGrid.innerHTML = `<p style="color:var(--text-muted); grid-column: 1/-1;">No restaurants found for "${category}". <a href="#" onclick="filterRestaurants('All'); return false;" style="color:var(--brand-color);">Clear filter</a></p>`;
+    } else {
+        filtered.forEach(rest => {
+            restaurantsGrid.innerHTML += `
+                <div class="restaurant-card" onclick="openRestaurant('${rest.id}')">
+                    <img src="${rest.cardImg}" alt="${rest.name}" class="card-img" onerror="this.src='${IMG_PIZZA}?w=400&fit=crop'">
+                    <div class="card-info">
+                        <div class="card-header">
+                            <div class="card-name">${rest.name}</div>
+                            <div class="card-rating">&#9733; ${rest.rating}</div>
+                        </div>
+                        <div class="card-meta">
+                            <span>${rest.meta}</span>
+                            <span>${rest.time}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    showToast(`Filtered by ${category}!`);
+}
+
