@@ -3,34 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GourmetSync - Smart Food Pre-Ordering</title>
+    <title>Crave - Smart Food Pre-Ordering</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <!-- Top Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo" onclick="showHome()">
-                <span class="logo-icon">🍽️</span> Gourmet<span>Sync</span>
+                <span class="logo-icon">ðŸ½ï¸</span> Gourmet<span>Sync</span>
             </div>
             
             <div class="search-container">
-                <span class="search-icon">🔍</span>
+                <span class="search-icon">ðŸ”</span>
                 <input type="text" placeholder="Search for restaurant, cuisine or a dish">
             </div>
+
             <div class="nav-actions">
-                <button class="nav-btn" onclick="openDashboard()"><span class="icon">📅</span> My Schedule</button>
+                <button class="nav-btn" onclick="openDashboard()"><span class="icon">&#128197;</span> My Schedule</button>
                 <div class="cart-wrapper" onclick="openCart()">
-                    <span class="icon">🛒</span> <span class="cart-label">Cart</span>
+                    <span class="icon">&#128722;</span> <span class="cart-label">Cart</span>
                     <div class="cart-badge" id="nav-cart-count">0</div>
                 </div>
-                <div class="profile-icon" onclick="logout()" title="Logout" style="cursor: pointer;">
+                <div class="profile-icon" onclick="openUserMenu()" title="Profile" style="cursor: pointer;">
                     <img src="https://ui-avatars.com/api/?name=User&background=ef4f5f&color=fff" alt="Profile">
                 </div>
             </div>
         </div>
     </nav>
+
     <!-- App Views -->
     <main class="main-content">
         
@@ -43,13 +46,15 @@
                     <!-- Populated via JS -->
                 </div>
             </section>
+
             <hr class="divider">
+
             <!-- Restaurants Grid -->
             <section class="restaurants-section">
                 <h2>Restaurants with online smart-scheduling</h2>
                 <div class="filters">
                     <button class="filter-btn active">Delivery</button>
-                    <button class="filter-btn">Pre-order for week 📅</button>
+                    <button class="filter-btn">Pre-order for week &#128197;</button>
                     <button class="filter-btn">Rating 4.0+</button>
                     <button class="filter-btn">Offers</button>
                 </div>
@@ -58,9 +63,10 @@
                 </div>
             </section>
         </div>
+
         <!-- View 2: Specific Restaurant Menu -->
         <div id="view-restaurant" class="view">
-            <button class="back-btn" onclick="showHome()">← Back to Restaurants</button>
+            <button class="back-btn" onclick="showHome()">â† Back to Restaurants</button>
             <div id="restaurant-header">
                 <!-- Dynamically injected Header -->
             </div>
@@ -78,9 +84,10 @@
                 </div>
             </div>
         </div>
+
         <!-- View 3: Dashboard (Pre-Order Setup Tracking) -->
         <div id="view-dashboard" class="view">
-            <button class="back-btn" onclick="showHome()">← Back to Home</button>
+            <button class="back-btn" onclick="showHome()">â† Back to Home</button>
             <h2 style="margin-bottom: 12px;">My Scheduled Orders & Weekly Plan</h2>
             <p style="color:var(--text-muted); margin-bottom: 24px;">Your Zomato/Swiggy pre-orders managed effectively.</p>
             <div class="dashboard-grid">
@@ -90,20 +97,45 @@
                 </div>
             </div>
         </div>
+
     </main>
+
     <!-- Sticky Cart Strip (Bottom of screen when viewing menu) -->
     <div class="sticky-cart-strip" id="sticky-cart">
         <div class="strip-info">
-            <span id="strip-count">1 Item</span> | <span id="strip-price">₹1450.00</span>
+            <span id="strip-count">1 Item</span> | <span id="strip-price">&#8377;1450.00</span>
         </div>
-        <button class="strip-btn" onclick="openCart()">View Cart ➡</button>
+        <button class="strip-btn" onclick="openCart()">View Cart &rarr;</button>
     </div>
+
     <!-- Cart Overlay & Sidebar -->
-    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart(); closeUserMenu();"></div>
+    <aside class="cart-sidebar user-sidebar" id="user-sidebar">
+        <div class="cart-header">
+            <h2>Account</h2>
+            <button class="close-cart-btn" onclick="closeUserMenu()">&times;</button>
+        </div>
+        <div class="cart-body">
+            <ul class="user-menu-list" style="list-style:none; padding:0;">
+                <li onclick="openDashboard(); closeUserMenu();" style="padding:15px; border-bottom:1px solid #eee; cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">
+                    <span style="margin-right:10px;">&#128197;</span> My Orders & Schedule
+                </li>
+                <li onclick="showToast('Help Desk clicked!'); closeUserMenu();" style="padding:15px; border-bottom:1px solid #eee; cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">
+                    <span style="margin-right:10px;">&#10068;</span> Help Desk
+                </li>
+                <li onclick="showToast('Account section is under construction!'); closeUserMenu();" style="padding:15px; border-bottom:1px solid #eee; cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">
+                    <span style="margin-right:10px;">&#128100;</span> Account section
+                </li>
+                <li style="padding:15px; margin-top:10px; cursor:pointer; font-weight:bold; color:red;" onclick="logout()">
+                    <span style="margin-right:10px;">&#128682;</span> Logout
+                </li>
+            </ul>
+        </div>
+    </aside>
     <aside class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
             <h2>Your Cart</h2>
-            <button class="close-cart-btn" onclick="closeCart()">&times;</button>
+            <button class="close-cart-btn" onclick="closeCart(); closeUserMenu();">&times;</button>
         </div>
         
         <div class="cart-body">
@@ -112,10 +144,11 @@
             </div>
             
             <div class="cart-summary" id="cart-summary">
-                <div class="summary-row"><span>Subtotal</span><span id="cart-subtotal">₹0.00</span></div>
-                <div class="summary-row"><span>Delivery Fee</span><span>₹40.00</span></div>
-                <div class="summary-row bold"><span>Total</span><span id="cart-total">₹0.00</span></div>
+                <div class="summary-row"><span>Subtotal</span><span id="cart-subtotal">&#8377;0.00</span></div>
+                <div class="summary-row"><span>Delivery Fee</span><span>&#8377;40.00</span></div>
+                <div class="summary-row bold"><span>Total</span><span id="cart-total">&#8377;0.00</span></div>
             </div>
+
             <div class="scheduling-section">
                 <h3>Smart Schedule Setup <span class="badge-new">NEW</span></h3>
                 <p class="schedule-desc">This adds our extra smart-scheduling feature so you can get this delivered next week.</p>
@@ -135,10 +168,14 @@
             </div>
         </div>
     </aside>
+
     <!-- Toast Notification -->
     <div id="toast" class="toast">
         <div class="toast-content" id="toast-msg">Added to Cart!</div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
+
+
