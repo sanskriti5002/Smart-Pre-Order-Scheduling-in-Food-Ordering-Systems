@@ -1,4 +1,4 @@
-/ Auth Check
+// Auth Check
 if (!localStorage.getItem('CraveAuth')) {
     window.location.href = 'login.html';
 }
@@ -627,5 +627,4 @@ window.filterRestaurants = function(category) {
     }
     showToast(`Filtered by ${category}!`);
 }
-
 
