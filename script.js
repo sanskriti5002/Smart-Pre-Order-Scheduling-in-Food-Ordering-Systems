@@ -285,7 +285,7 @@ window.openRestaurant = function(id) {
             reviewsHtml = `
             <div class="fk-reviews-container">
                 <div class="fk-reviews-header" onclick="document.getElementById('revs-${item.id}').classList.toggle('open')">
-                    Customer Reviews (&#9733; ${avgRating}) <span>View All â–¼</span>
+                    Customer Reviews (&#9733; ${avgRating}) <span>View All &#9660;</span>
                 </div>
                 <div class="fk-details" id="revs-${item.id}">
                     ${item.reviews.map(r => `
@@ -354,7 +354,7 @@ function updateStickyCart() {
         let totalPrice = currentCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
         
         document.getElementById('strip-count').textContent = `${totalItems} ITEM${totalItems > 1 ? 'S' : ''}`;
-        document.getElementById('strip-price').textContent = `&#8377;${totalPrice.toFixed(2)}`;
+        document.getElementById('strip-price').innerHTML = `&#8377;${totalPrice.toFixed(2)}`;
         stickyCart.classList.add('show');
     } else {
         stickyCart.classList.remove('show');
@@ -378,10 +378,10 @@ function renderCartSidebar() {
     
     if (currentCart.length === 0) {
         cartItemsContainer.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:40px 0;">Your cart is empty. Explore restaurants to add dishes!</p>';
-        document.getElementById('cart-subtotal').textContent = '&#8377;0.00';
-        document.getElementById('cart-total').textContent = '&#8377;0.00';
+        document.getElementById('cart-subtotal').innerHTML = '&#8377;0.00';
+        document.getElementById('cart-total').innerHTML = '&#8377;0.00';
         document.getElementById('btn-checkout').disabled = true;
-        document.getElementById('checkout-total').textContent = '';
+        document.getElementById('checkout-total').innerHTML = '';
         return;
     }
     
@@ -407,9 +407,9 @@ function renderCartSidebar() {
     const deliveryFee = 40.00;
     const total = subtotal + deliveryFee;
     
-    document.getElementById('cart-subtotal').textContent = '&#8377;' + subtotal.toFixed(2);
-    document.getElementById('cart-total').textContent = '&#8377;' + total.toFixed(2);
-    document.getElementById('checkout-total').textContent = ' &bull; &#8377;' + total.toFixed(2);
+    document.getElementById('cart-subtotal').innerHTML = '&#8377;' + subtotal.toFixed(2);
+    document.getElementById('cart-total').innerHTML = '&#8377;' + total.toFixed(2);
+    document.getElementById('checkout-total').innerHTML = ' &bull; &#8377;' + total.toFixed(2);
 }
 
 window.updateQty = function(index, delta) {
@@ -446,6 +446,8 @@ scheduleForm.addEventListener('submit', (e) => {
     if (currentCart.length === 0) return;
     
     const orderType = document.querySelector('input[name="orderType"]:checked').value;
+    const paymentMethodEl = document.querySelector('input[name="paymentMethod"]:checked');
+    const paymentMethod = paymentMethodEl ? paymentMethodEl.value : 'UPI';
     let dateVal = '';
     let timeVal = '';
     
@@ -470,11 +472,14 @@ scheduleForm.addEventListener('submit', (e) => {
             orders.push({
                 id: Date.now().toString() + Math.random().toString(36).substr(2, 5),
                 meal: item.name,
+                price: item.price,
                 date: dateVal,
                 time: timeVal,
                 restaurant: item.restaurantName,
                 status: orderType === 'scheduled' ? 'Confirmed' : 'Preparing',
-                orderType: orderType
+                orderType: orderType,
+                createdAt: Date.now(),
+                paymentMethod: paymentMethod
             });
         }
     });
@@ -537,6 +542,7 @@ function renderDashboard() {
                     <span class="dash-status" style="background: ${statusBgColor}; color: ${statusColor};">${icon} ${statusLabel}</span>
                     <div class="dash-item-name">${order.meal}</div>
                     <div class="dash-item-restaurant">From: ${order.restaurant}</div>
+                    ${order.paymentMethod ? `<div style="font-size:12px; color:var(--text-muted); margin-top:4px;">Paid via: ${order.paymentMethod}</div>` : ''}
                 </div>
                 <div class="dash-item-datetime">
                     <div style="font-weight:600;">${fDate}</div>
@@ -548,11 +554,70 @@ function renderDashboard() {
     });
 }
 
+let orderToCancelId = null;
+
 window.cancelOrder = function(id) {
-    orders = orders.filter(order => order.id !== id);
-    localStorage.setItem('CraveOrders', JSON.stringify(orders));
-    renderDashboard();
+    const order = orders.find(o => o.id === id);
+    if (!order) return;
+    
+    const now = Date.now();
+    let penalty = 0;
+    
+    // Fallback if createdAt doesn't exist (old orders)
+    const createdAt = order.createdAt || now; 
+    
+    if (order.orderType === 'normal') {
+        const diffInMinutes = (now - createdAt) / (1000 * 60);
+        if (diffInMinutes <= 5) {
+            penalty = 0;
+        } else if (diffInMinutes > 5 && diffInMinutes <= 15) {
+            penalty = 20;
+        } else {
+            penalty = 50;
+        }
+    } else {
+        const scheduledTime = new Date(`${order.date}T${order.time}`).getTime();
+        const timeToDeliveryInMinutes = (scheduledTime - now) / (1000 * 60);
+        
+        if (timeToDeliveryInMinutes >= 120) {
+            penalty = 0; // >= 2 hours
+        } else if (timeToDeliveryInMinutes < 120 && timeToDeliveryInMinutes >= 60) {
+            penalty = 20; // 1-2 hours
+        } else {
+            penalty = 50; // < 1 hour
+        }
+    }
+    
+    orderToCancelId = id;
+    
+    const msgEl = document.getElementById('penalty-msg');
+    if (penalty === 0) {
+        msgEl.innerHTML = `Are you sure you want to cancel <strong>${order.meal}</strong>? No cancellation fee applies.`;
+    } else {
+        msgEl.innerHTML = `You are canceling <strong>${order.meal}</strong> past the free cancellation period. A penalty of <strong>&#8377;${penalty}</strong> will be deducted from your refund. Do you want to proceed?`;
+    }
+    
+    document.getElementById('penalty-overlay').style.opacity = '1';
+    document.getElementById('penalty-overlay').style.pointerEvents = 'auto';
+    document.getElementById('penalty-modal').style.display = 'block';
 }
+
+window.closePenaltyModal = function() {
+    orderToCancelId = null;
+    document.getElementById('penalty-overlay').style.opacity = '0';
+    document.getElementById('penalty-overlay').style.pointerEvents = 'none';
+    document.getElementById('penalty-modal').style.display = 'none';
+}
+
+document.getElementById('confirm-cancel-btn').addEventListener('click', () => {
+    if (orderToCancelId) {
+        orders = orders.filter(order => order.id !== orderToCancelId);
+        localStorage.setItem('CraveOrders', JSON.stringify(orders));
+        renderDashboard();
+        showToast('Order cancelled successfully.');
+        closePenaltyModal();
+    }
+});
 
 window.logout = function() {
     localStorage.removeItem('CraveAuth');
