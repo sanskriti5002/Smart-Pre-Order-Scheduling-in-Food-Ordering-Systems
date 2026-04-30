@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crave - Smart Food Pre-Ordering</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="showHome()">
+                <span class="logo-icon"></span> Crave<span></span>
+            </div>
+            
+            <div class="search-container">
+                <span class="search-icon"></span>
+                <input type="text" placeholder="Search for restaurant, cuisine or a dish">
+            </div>
+
+            <div class="nav-actions">
+                <button class="nav-btn" onclick="openDashboard()"><span class="icon">&#128197;</span> My Schedule</button>
+                <div class="cart-wrapper" onclick="openCart()">
+                    <span class="icon">&#128722;</span> <span class="cart-label">Cart</span>
+                    <div class="cart-badge" id="nav-cart-count">0</div>
+                </div>
+                <div class="profile-icon" onclick="openUserMenu()" title="Profile" style="cursor: pointer;">
+                    <img src="https://ui-avatars.com/api/?name=User&background=ef4f5f&color=fff" alt="Profile">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- App Views -->
+    <main class="main-content">
+        
+        <!-- View 1: Home List of Restaurants -->
+        <div id="view-home" class="view active">
+            <!-- Hero / Categories Carousel -->
+            <section class="inspiration-section">
+                <h2>What's on your mind?</h2>
+                <div class="categories-list" id="categories-container">
+                    <!-- Populated via JS -->
+                </div>
+            </section>
+
+            <hr class="divider">
+
+            <!-- Restaurants Grid -->
+            <section class="restaurants-section">
+                <h2>Restaurants with online smart-scheduling</h2>
+                <div class="filters">
+                    <button class="filter-btn active">Delivery</button>
+                    <button class="filter-btn">Pre-order for week &#128197;</button>
+                    <button class="filter-btn">Rating 4.0+</button>
+                    <button class="filter-btn">Offers</button>
+                </div>
+                <div class="restaurant-grid" id="restaurants-grid">
+                    <!-- Cards populated via JS -->
+                </div>
+            </section>
+        </div>
+
+        <!-- View 2: Specific Restaurant Menu -->
+        <div id="view-restaurant" class="view">
+            <button class="back-btn" onclick="showHome()"> Back to Restaurants</button>
+            <div id="restaurant-header">
+                <!-- Dynamically injected Header -->
+            </div>
+            
+            <div class="menu-container">
+                <div class="menu-sidebar">
+                    <ul id="menu-categories">
+                        <li class="active">Recommended</li>
+                        <li>Specials</li>
+                        <li>Desserts</li>
+                    </ul>
+                </div>
+                <div class="menu-list" id="menu-items">
+                    <!-- Menu items via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- View 3: Dashboard (Pre-Order Setup Tracking) -->
+        <div id="view-dashboard" class="view">
+            <button class="back-btn" onclick="showHome()" Back to Home</button>
+            <h2 style="margin-bottom: 12px;">My Orders & Schedule</h2>
+            <p style="color:var(--text-muted); margin-bottom: 24px;">Track your normal and scheduled orders in one place.</p>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Upcoming Deliveries</h3>
+                    <div id="upcoming-list" class="upcoming-list"></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Sticky Cart Strip (Bottom of screen when viewing menu) -->
+    <div class="sticky-cart-strip" id="sticky-cart">
+        <div class="strip-info">
+            <span id="strip-count">1 Item</span><span id="strip-price">1450.00</span>
+        </div>
+        <button class="strip-btn" onclick="openCart()">View Cart &rarr;</button>
+    </div>
+
+    <!-- Cart Overlay & Sidebar -->
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart(); closeUserMenu();"></div>
+    <aside class="cart-sidebar user-sidebar" id="user-sidebar">
+        <div class="cart-header">
+            <h2>Account</h2>
+            <button class="close-cart-btn" onclick="closeUserMenu()">&times;</button>
+        </div>
+        <div class="cart-body">
+            <ul class="user-menu-list" style="list-style:none; padding:0;">
+                <li onclick="openDashboard(); closeUserMenu();" style="padding:15px; border-bottom:1px solid #eee; cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">
+                    <span style="margin-right:10px;"></span> My Orders & Schedule
+                </li>
+                <li onclick="showToast('Help Desk clicked!'); closeUserMenu();" style="padding:15px; border-bottom:1px solid #eee; cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">
+                    <span style="margin-right:10px;">&#10068;</span> Help Desk
+                </li>
+                <li onclick="showToast('Account section is under construction!'); closeUserMenu();" style="padding:15px; border-bottom:1px solid #eee; cursor:pointer;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='white'">
+                    <span style="margin-right:10px;">&#128100;</span> Account section
+                </li>
+                <li style="padding:15px; margin-top:10px; cursor:pointer; font-weight:bold; color:red;" onclick="logout()">
+                    <span style="margin-right:10px;">&#128682;</span> Logout
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <aside class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart-btn" onclick="closeCart(); closeUserMenu();">&times;</button>
+        </div>
+        
+        <div class="cart-body">
+            <div id="cart-items-container" class="cart-items-list">
+                <!-- Cart internal items -->
+            </div>
+            
+            <div class="cart-summary" id="cart-summary">
+                <div class="summary-row"><span>Subtotal</span><span id="cart-subtotal">0.00</span></div>
+                <div class="summary-row"><span>Delivery Fee</span><span>40.00</span></div>
+                <div class="summary-row bold"><span>Total</span><span id="cart-total">0.00</span></div>
+            </div>
+
+            <div class="scheduling-section">
+                <h3>Delivery Type</h3>
+                <div class="order-type-selector">
+                    <label class="order-type-option">
+                        <input type="radio" name="orderType" value="normal" checked>
+                        <span class="option-label">Normal Order</span>
+                        <span class="option-desc">Get it today</span>
+                    </label>
+                    <label class="order-type-option">
+                        <input type="radio" name="orderType" value="scheduled">
+                        <span class="option-label">Schedule Order <span class="badge-new">NEW</span></span>
+                        <span class="option-desc">Plan ahead for next week</span>
+                    </label>
+                </div>
+
+                <form id="schedule-form">
+                    <!-- Scheduled Order Fields (Hidden by default) -->
+                    <div id="schedule-fields" class="schedule-fields" style="display:none;">
+                        <div class="form-group">
+                            <label>Select Date</label>
+                            <input type="date" id="schedule-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Select Time</label>
+                            <input type="time" id="schedule-time">
+                        </div>
+                    </div>
+                    
+                    <div class="scheduling-section" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                        <h3 style="margin-bottom: 12px;">Payment Method</h3>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid #eee; border-radius: 8px; cursor: pointer;">
+                                <input type="radio" name="paymentMethod" value="UPI" checked>
+                                <span style="font-weight: 500;">UPI</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid #eee; border-radius: 8px; cursor: pointer;">
+                                <input type="radio" name="paymentMethod" value="Card">
+                                <span style="font-weight: 500;">Credit/Debit Card</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid #eee; border-radius: 8px; cursor: pointer;">
+                                <input type="radio" name="paymentMethod" value="COD">
+                                <span style="font-weight: 500;">Cash on Delivery</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top:20px;">
+                        <button type="submit" class="checkout-btn" id="btn-checkout">Place Order <span id="checkout-total"></span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content" id="toast-msg">Added to Cart!</div>
+    </div>
+
+    <!-- Penalty Modal -->
+    <div class="cart-overlay" id="penalty-overlay" style="z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;"></div>
+    <div id="penalty-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2001; background: white; padding: 24px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 90%; max-width: 400px; color: #333;">
+        <h3 style="margin-bottom: 12px; color: var(--brand-color);">Cancel Order</h3>
+        <p id="penalty-msg" style="margin-bottom: 20px; line-height: 1.5; color: var(--text-muted);"></p>
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button onclick="closePenaltyModal()" style="padding: 10px 20px; border: 1px solid #ddd; background: transparent; border-radius: 8px; cursor: pointer; font-weight: 600;">Keep Order</button>
+            <button id="confirm-cancel-btn" style="padding: 10px 20px; background: var(--brand-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Yes, Cancel</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
