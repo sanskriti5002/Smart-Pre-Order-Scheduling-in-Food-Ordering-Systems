@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crave - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-color: #ff5200;
+            --brand-dark: #e04a00;
+            --text-dark: #3d4152;
+            --text-light: #ffffff;
+            --text-muted: #686b78;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #121212;
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        /* Full Background Image */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&fit=crop') no-repeat center center/cover;
+            z-index: -1;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 8%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-light);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .logo-icon {
+            background: var(--brand-color);
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            box-shadow: 0 10px 20px rgba(255,82,0,0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.3s;
+        }
+
+        .nav-link:hover {
+            opacity: 0.8;
+            color: var(--brand-color);
+        }
+
+        .btn-dark {
+            background: #fff;
+            color: #000;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+        .btn-dark:hover {
+            background: var(--brand-color);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Container */
+        .hero-container {
+            max-width: 1000px;
+            margin: 100px auto 100px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+            text-shadow: 0 10px 30px rgba(0,0,0, 0.8);
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: 50px;
+            text-shadow: 0 5px 15px rgba(0,0,0, 0.8);
+        }
+
+        .btn-primary {
+            background: var(--brand-color);
+            color: #fff;
+            font-size: 20px;
+            font-weight: 800;
+            padding: 20px 48px;
+            border-radius: 100px;
+            text-decoration: none;
+            box-shadow: 0 15px 30px rgba(255, 82, 0, 0.4);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 82, 0, 0.6);
+            background: var(--brand-dark);
+        }
+
+        /* Options Cards */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 30px;
+            text-align: left;
+            color: var(--text-dark);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 380px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            background: #ffffff;
+        }
+
+        .card h2 {
+            font-size: 30px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+            color: #3d4152;
+            line-height: 1.1;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            background: rgba(255, 82, 0, 0.08);
+            color: var(--brand-color);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .card-img {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: -10px -10px 30px rgba(0,0,0,0.1);
+        }
+
+        .card-arrow {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            width: 44px;
+            height: 44px;
+            background: #f0f0f5;
+            color: var(--brand-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+            transition: all 0.3s;
+        }
+        
+        .card:hover .card-arrow {
+            background: var(--brand-color);
+            color: #fff;
+            transform: translateX(4px);
+        }
+
+        /* Schedule Section */
+        .schedule-wrapper {
+            background: #ffffff;
+            padding: 100px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .schedule-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            border-radius: 32px;
+            padding: 60px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+            border: 1px solid #eee;
+        }
+
+        .schedule-text h2 {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .schedule-text p {
+            font-size: 20px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .schedule-form {
+            background: #fff;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        .form-row {
+            margin-bottom: 24px;
+        }
+
+        .form-row.split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .schedule-form label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .schedule-form input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #f0f0f5;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.3s;
+            color: var(--text-dark);
+            background: #fafafa;
+        }
+
+        .schedule-form input:focus {
+            border-color: var(--brand-color);
+            background: #fff;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--brand-color);
+            color: #fff;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: var(--brand-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-weight: 500;
+            position: relative;
+            z-index: 10;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .footer-icon {
+            background: var(--brand-color);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            nav { flex-direction: column; gap: 20px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            h1 { font-size: 48px; padding: 0 20px; }
+            .card { min-height: 320px; }
+            .schedule-container {
+                grid-template-columns: 1fr;
+                padding: 30px;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Full viewport background image -->
+    <div class="bg-image"></div>
+
+    <nav>
+        <a href="#" class="logo">
+            <div class="logo-icon">C</div>
+            Crave
+        </a>
+        <div class="nav-links">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#features" class="nav-link">Features</a>
+            <a href="login.html" class="btn-dark">Login</a>
+        </div>
+    </nav>
+
+    <div class="hero-container">
+        <h1>Smart Dining,<br>Scheduled Ahead.</h1>
+        <p class="hero-subtitle">Don't wait until you're hungry. Plan your entire week today.</p>
+        <a href="#schedule" class="btn-primary">Start Planning</a>
+    </div>
+
+    <div class="cards-container" id="features">
+        <!-- Card 1 -->
+        <a href="#schedule" class="card card-1">
+            <h2>EXPLORE MENUS</h2>
+            <p>Vibrant Restaurant Feed</p>
+            <div><span class="feature-badge">HIGH-RES IMAGES</span></div>
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&fit=crop" class="card-img" alt="Explore Food">
+            <div class="card-arrow">+</div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="#schedule" class="card card-2">
+            <h2>SCHEDULE MEALS</h2>
+            <p>Advanced Integration</p>
+            <div><span class="feature-badge">WEEKLY PLANNING</span></div>
+            <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=400&fit=crop" class="card-img" alt="Calendar Schedule">
+            <div class="card-arrow">+</div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="#schedule" class="card card-3">
+            <h2>SMART CART</h2>
+            <p>Save Local Orders</p>
+            <div><span class="feature-badge">SEAMLESS CHECKOUT</span></div>
+            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&fit=crop" class="card-img" alt="Restaurant Cart">
+            <div class="card-arrow">+</div>
+        </a>
+    </div>
+
+    <!-- Scheduling Section integrated into Home Page -->
+    <div class="schedule-wrapper" id="schedule">
+        <div class="schedule-container">
+            <div class="schedule-text">
+                <h2>Plan Your Weekly Meals</h2>
+                <p>Take complete control over your hunger. Uniquely specify exact dates and times for your deliveries next week, right from the home page. Login is only required at checkout.</p>
+            </div>
+            <form class="schedule-form" action="login.html">
+                <div class="form-row">
+                    <label>Restaurant or Dish</label>
+                    <input type="text" placeholder="e.g. Pizza, Salad, Pasta" required>
+                </div>
+                <div class="form-row split">
+                    <div>
+                        <label>Delivery Date</label>
+                        <input type="date" required>
+                    </div>
+                    <div>
+                        <label>Delivery Time</label>
+                        <input type="time" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Proceed to Checkout & Login</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-logo">
+            <div class="footer-icon">C</div> Crave
+        </div>
+        <p>&copy; 2026 Crave Platform. Smart Culinary Ordering.</p>
+    </footer>
+
+</body>
+</html>
+
